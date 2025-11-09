@@ -12,3 +12,11 @@ export async function GET() {
     summary: item.contentSnippet
   })));
 }
+
+export async function refresh() {
+  if(typeof window !== 'undefined'){
+    window.location.reload();
+  }
+
+}
+
