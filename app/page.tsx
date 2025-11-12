@@ -18,6 +18,24 @@ setInterval(refresh, 300000);
 
 export default function FeedList() {
   const [items, setItems] = useState<FeedItem[]>([]);
+  const now = new Date();
+  let min: string = "";
+  let second: string = "";
+
+  if(now.getSeconds()/10 < 1){
+    second = `0${now.getSeconds()}`;
+  }
+
+  else{
+    second = `${now.getSeconds()}`;
+  }
+
+  if(now.getMinutes()/10 < 1){
+    min = "0" + min;
+  }
+  else{
+    min = `${now.getMinutes()}`;
+  }
 
   useEffect(() => {
     fetch('/feed')
@@ -31,6 +49,7 @@ export default function FeedList() {
 
       <div className="p-4">
         <h1 className="header">News Feed</h1>
+        <p className="text-center">Last Refreshed: {now.getDate()}/{now.getMonth()+1}/{now.getFullYear()} {now.getHours()%12}:{min}:{second}</p>
         {items.map((item, i) => (
           <div key={i} className="border-b padd">
             <div className= "test">
