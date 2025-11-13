@@ -4,25 +4,49 @@
 @import '@skeletonlabs/skeleton-react';
 @import '@skeletonlabs/skeleton/themes/cerberus';
 
-.header{
+
+.header {
     font-size: 5vw;
     text-align: center;
 }
 
-.title{
+.title {
     font-size: 3vw;
 }
 
-.center{
+/* .center{
     margin-left: 25%;
     text-align: center;
-}
+} */
 
-.test{
+/* .test{
     width: 75%;
-}
+} */
 
-.padd{
+.padd {
     padding-top: 50px;
     padding-bottom: 50px;
+}
+
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-height: 10%;
+}
+
+@media (max-width: 1050px){
+    .grid{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 700px){
+    .grid{
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+.grid>div {
+    padding: 10px;
 }
