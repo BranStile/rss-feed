@@ -29,9 +29,9 @@
 
 .grid {
     display:grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    
+    color: #8e9e8e;    
 }
 
 @media (max-width: 1050px){
@@ -65,3 +65,4 @@
 .gridSocials>div {
     padding: 10px;
 }
+
