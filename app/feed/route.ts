@@ -1,10 +1,11 @@
 
 import Parser from 'rss-parser';
 
+
 export async function GET() {
   const parser = new Parser();
-  const feed = await parser.parseURL('https://www.whitehouse.gov/news/feed/');
-  
+  let feed = await parser.parseURL('https://www.whitehouse.gov/news/feed/');
+//https://trumpstruth.org/feed
   return Response.json(feed.items.map(item => ({
     title: item.title,
     link: item.link,
@@ -13,12 +14,7 @@ export async function GET() {
   })));
 }
 
-export async function refresh() {
-  if(typeof window !== 'undefined'){
-    window.location.reload();
-    
-  }
-}
+
 
 
 

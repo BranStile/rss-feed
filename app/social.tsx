@@ -3,7 +3,6 @@
 
 import { time } from 'console';
 import React, { useEffect, useState } from 'react';
-import MyAppBar from './appbar';
 
 import './app.css'
 
@@ -51,11 +50,8 @@ export default function FeedList() {
       .then(setItems)
       .catch(console.error);
   }, []);
- 
   return (
-   
     <div>
-      <MyAppBar />
       <div className="p-4">
         <h1 className="header">News Feed</h1>
         <p className="text-center">Last Refreshed: {now.getDate()}/{now.getMonth() + 1}/{now.getFullYear()} {now.getHours() % 12}:{min}:{second}</p>
@@ -90,4 +86,3 @@ export default function FeedList() {
   );
 
 }
-
