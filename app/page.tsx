@@ -29,6 +29,10 @@ export default function FeedList() {
   const now = new Date();
   let min: string = "";
   let second: string = "";
+  let hour: number = now.getHours() % 12;
+  if(hour == 0){
+    hour = 12;
+  }
 
   if (now.getSeconds() / 10 < 1) {
     second = `0${now.getSeconds()}`;
@@ -58,7 +62,7 @@ export default function FeedList() {
       <MyAppBar />
       <div className="p-4">
         <h1 className="header">News Feed</h1>
-        <p className="text-center">Last Refreshed: {now.getDate()}/{now.getMonth() + 1}/{now.getFullYear()} {now.getHours() % 12}:{min}:{second}</p>
+        <p className="text-center">Last Refreshed: {now.getMonth()}/{now.getDate() + 1}/{now.getFullYear()} {hour}:{min}:{second}</p>
         <div className="grid">
           {items.map((item, i) => (
             <div key={i} className=" border-b padd">
