@@ -62,7 +62,7 @@ export default function FeedList() {
       <MyAppBar />
       <div className="p-4">
         <h1 className="header">News Feed</h1>
-        <p className="text-center">Last Refreshed: {now.getMonth()}/{now.getDate() + 1}/{now.getFullYear()} {hour}:{min}:{second}</p>
+        <p className="text-center">Last Refreshed: {now.getMonth() + 1}/{now.getDate() }/{now.getFullYear()} {hour}:{min}:{second}</p>
         <div className="grid">
           {items.map((item, i) => (
             <div key={i} className=" border-b padd">
