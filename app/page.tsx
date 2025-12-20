@@ -49,21 +49,44 @@ export default function FeedList() {
     min = `${now.getMinutes()}`;
   }
 
-  useEffect(() => {
-    fetch('/feed')
-      .then(res => res.json())
-      .then(setItems)
-      .catch(console.error);
-  }, []);
- 
+useEffect(() => {
+  async function loadfeeds() {
+    const res = await fetch('/feed');
+    const data = await res.json();
+
+    setItems(data.whitehouse);
+  }
+
+  loadfeeds();
+}, []);
+
+useEffect(() => {
+  const interval = setInterval(async () => {
+    const res = await fetch('/feed');
+    const data = await res.json();
+    setItems(data.whitehouse);
+  }, 300000); // 5 minutes
+
+  return () => clearInterval(interval); // cleanup on unmount
+}, []);
+
+const refreshDate = Date().substring(0,16);
+var refreshHour: any = Date().substring(16,18);
+refreshHour = parseInt(refreshHour)%12;
+const refreshMinSec = Date().substring(18,24)
+if(refreshHour == 0){
+  refreshHour = 12;
+}
+
   return (
    
     <div>
       <MyAppBar />
       <div className="p-4">
         <h1 className="header">News Feed</h1>
-        <p className="text-center">Last Refreshed: {now.getMonth() + 1}/{now.getDate() }/{now.getFullYear()} {hour}:{min}:{second}</p>
+        <p className="text-center">Last Refreshed: {refreshDate} {refreshHour}{refreshMinSec}</p>
         <div className="grid">
+          
           {items.map((item, i) => (
             <div key={i} className=" border-b padd">
               <div className="test">
@@ -73,7 +96,7 @@ export default function FeedList() {
                 >
                   <article className="space-y-4 p-4">
                     <div>
-                      <h2 className="h6">{item.published.substring(0, 25)}</h2>
+                      <h2 className="h6">{item.published}</h2>
                       <h3 className="h3">{item.title}</h3>
                     </div>
                     <p className="opacity-60">
