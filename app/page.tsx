@@ -69,14 +69,13 @@ useEffect(() => {
 
   return () => clearInterval(interval); // cleanup on unmount
 }, []);
-
-const refreshDate = Date().substring(0,16);
-var refreshHour: any = Date().substring(16,18);
-refreshHour = parseInt(refreshHour)%12;
-const refreshMinSec = Date().substring(18,24)
-if(refreshHour == 0){
-  refreshHour = 12;
-}
+const date = new Date();
+const eastDate = new Intl.DateTimeFormat("en-GB", {
+  dateStyle: "medium",
+  timeStyle: "medium",
+  timeZone: "America/New_York",
+  hour12: true, 
+}).format(date);
 
   return (
    
@@ -84,7 +83,7 @@ if(refreshHour == 0){
       <MyAppBar />
       <div className="p-4">
         <h1 className="header">News Feed</h1>
-        <p className="text-center">Last Refreshed: {refreshDate} {refreshHour}{refreshMinSec}</p>
+        <p className="text-center">Last Refreshed: {eastDate}</p>
         <div className="grid">
           
           {items.map((item, i) => (
