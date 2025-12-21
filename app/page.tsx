@@ -4,6 +4,7 @@
 import { time } from 'console';
 import React, { useEffect, useState } from 'react';
 import MyAppBar from './appbar';
+import { useNavigate } from 'react-router-dom'
 
 import './app.css'
 
@@ -13,13 +14,6 @@ interface FeedItem {
   published: string;
   summary: string;
 }
-export async function refresh() {
-  if(typeof window !== 'undefined'){
-    window.location.reload();
-    
-  }
-}
-setInterval(refresh, 300000);
 
 
 
@@ -53,7 +47,6 @@ useEffect(() => {
   async function loadfeeds() {
     const res = await fetch('/feed');
     const data = await res.json();
-
     setItems(data.whitehouse);
   }
 

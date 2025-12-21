@@ -3,8 +3,10 @@
 
 import { time } from 'console';
 import React, { useEffect, useState } from 'react';
+import MyAppBar from '../appbar';
+import { useNavigate } from 'react-router-dom'
 
-import './app.css'
+import '../app.css'
 
 interface FeedItem {
   title: string;
@@ -28,6 +30,10 @@ export default function FeedList() {
   const now = new Date();
   let min: string = "";
   let second: string = "";
+  let hour: number = now.getHours() % 12;
+  if(hour == 0){
+    hour = 12;
+  }
 
   if (now.getSeconds() / 10 < 1) {
     second = `0${now.getSeconds()}`;
@@ -44,18 +50,38 @@ export default function FeedList() {
     min = `${now.getMinutes()}`;
   }
 
-  useEffect(() => {
-    fetch('/feed')
-      .then(res => res.json())
-      .then(setItems)
-      .catch(console.error);
-  }, []);
+useEffect(() => {
+  async function loadfeeds() {
+    const res = await fetch('/feed');
+    const data = await res.json();
+
+    setItems(data.truth);
+  }
+
+  loadfeeds();
+}, []);
+
+useEffect(() => {
+  const interval = setInterval(async () => {
+    const res = await fetch('/feed');
+    const data = await res.json();
+    setItems(data.whitehouse);
+  }, 300000); // 5 minutes
+
+  return () => clearInterval(interval); // cleanup on unmount
+}, []);
+
+const date = new Date().toLocaleString();
+
   return (
+   
     <div>
+      <MyAppBar />
       <div className="p-4">
         <h1 className="header">News Feed</h1>
-        <p className="text-center">Last Refreshed: {now.getDate()}/{now.getMonth() + 1}/{now.getFullYear()} {now.getHours() % 12}:{min}:{second}</p>
-        <div className="grid">
+        <p className="text-center">Last Refreshed: {date}</p>
+        <div className="gridSocials">
+          
           {items.map((item, i) => (
             <div key={i} className=" border-b padd">
               <div className="test">
@@ -65,7 +91,7 @@ export default function FeedList() {
                 >
                   <article className="space-y-4 p-4">
                     <div>
-                      <h2 className="h6">{item.published.substring(0, 25)}</h2>
+                      <h2 className="h6">{item.published}</h2>
                       <h3 className="h3">{item.title}</h3>
                     </div>
                     <p className="opacity-60">
@@ -86,3 +112,4 @@ export default function FeedList() {
   );
 
 }
+
