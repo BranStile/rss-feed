@@ -12,7 +12,7 @@ export async function GET() {
       feed.items.map((item: any) => ({
         title: item.title,
         link: item.link,
-        published: item.pubDate,
+        published: new Date(item.pubDate).toLocaleString(),
         summary: item.contentSnippet,
       }));
 

@@ -69,13 +69,8 @@ useEffect(() => {
 
   return () => clearInterval(interval); // cleanup on unmount
 }, []);
-const date = new Date();
-const eastDate = new Intl.DateTimeFormat("en-GB", {
-  dateStyle: "medium",
-  timeStyle: "medium",
-  timeZone: "America/New_York",
-  hour12: true, 
-}).format(date);
+
+const date = new Date().toLocaleString();
 
   return (
    
@@ -83,7 +78,7 @@ const eastDate = new Intl.DateTimeFormat("en-GB", {
       <MyAppBar />
       <div className="p-4">
         <h1 className="header">News Feed</h1>
-        <p className="text-center">Last Refreshed: {eastDate}</p>
+        <p className="text-center">Last Refreshed: {date}</p>
         <div className="grid">
           
           {items.map((item, i) => (
